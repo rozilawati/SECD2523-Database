@@ -48,7 +48,7 @@
     <td>7</td>
     <td>Megadata Cloud</td>
     <td></td>
-    <th><a href="submissions/lab1" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="submissions/Phase1" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
   <tr>
     <td>8</td>
