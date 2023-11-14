@@ -53,7 +53,7 @@
     <td>8</td>
     <td>TechTitans</td>
     <td></td>
-    <th><a href="lab/submission/submissions/lab1/TechTitans" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="submissions/lab1/TechTitans" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
   <tr>
     <td>9</td>
