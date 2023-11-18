@@ -18,7 +18,7 @@
     <td>2</td>
     <td>MEOW</td>
     <td></td>
-    <th><a href="project/phase1/submission/MEOW" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
+    <th><a href="project/phase%1/submission/MEOW" ><img src="../../project/images/folder.png" width="24px" height="24px"></a></th>
   </tr>
   <tr>
     <td>3</td>
