@@ -1,0 +1,265 @@
+-----------------------CREATE TABLE---------------------------
+----User----
+CREATE TABLE UserDet(
+    userID varchar2(16),
+    userName varchar(30) NOT NULL,
+    userPH varchar2(12) NOT NULL,
+    userEmail varchar2(30) NOT NULL,
+    CONSTRAINT userID_PK PRIMARY KEY (userID)
+);
+
+----Customer----
+CREATE TABLE Customer(
+    CustomerID varchar2(16),
+    CustomerName varchar(30) NOT NULL,
+    CustomerPH varchar2(12) NOT NULL,
+    CustomerAddress varchar2(50) NOT NULL,
+    CustomerEmail varchar2(30) NOT NULL,
+    CONSTRAINT CustomerID_PK PRIMARY KEY (CustomerID)
+);
+
+----Product----
+CREATE TABLE Product(
+    ProductID varchar2(10),
+    ProductName varchar2(20) NOT NULL,
+    ProductDecs varchar2(200) NOT NULL,
+    ProductPrice DECIMAL(10,2) NOT NULL,
+    CONSTRAINT ProductID_PK PRIMARY KEY (ProductID)
+);
+
+----Order----
+CREATE TABLE Orders(
+    OrderID varchar2(10),
+    ProductQty NUMBER(2) NOT NULL,
+    OrderDate DATE NOT NULL,
+    TotalPrice DECIMAL(8,2) NOT NULL,
+    CustomerID varchar2(16) NOT NULL,
+    CONSTRAINT OrderID_PK PRIMARY KEY (OrderID)
+);
+
+----Stock----
+CREATE TABLE Stock(
+    ProductStock NUMBER(2) NOT NULL,
+    newStock NUMBER(3) NOT NULL,
+    ProductID varchar2(10) NOT NULL
+);
+
+----Payment----
+CREATE TABLE Payment(
+    PaymentID varchar2(12),
+    PaymentType CHAR(1) NOT NULL,
+    PaymentAmount DECIMAL(8,2) NOT NULL,
+    CONSTRAINT PaymentID_PK PRIMARY KEY (PaymentID)
+);
+
+----Courier----
+CREATE TABLE Courier(
+    TrackingNo varchar2(12),
+    TrackingDate DATE NOT NULL,
+    TrackingAdrs varchar2(50) NOT NULL,
+    OrderID varchar2(10) NOT NULL,
+    PaymentID varchar2(12) NOT NULL,
+    CONSTRAINT TrackingNo_PK PRIMARY KEY (TrackingNo)
+);
+
+----Company----
+CREATE TABLE Company(
+    CompanyID varchar2(12),
+    CompanyName varchar2(20) NOT NULL,
+    CompanyLocation varchar2(50) NOT NULL,
+    userID varchar2(16) NOT NULL,
+    CONSTRAINT CompanyID_PK PRIMARY KEY (CompanyID)
+);
+
+----Categories----
+CREATE TABLE Categories(
+    CategoryID varchar2(12),
+    CategoryName varchar2(20) NOT NULL,
+    ProductID varchar2(10) NOT NULL,
+    CONSTRAINT CategoryID_PK PRIMARY KEY (CategoryID)
+);
+
+-------ADD CONSTRAINT FOREIGN KEY----------
+---ORDERS---
+ALTER TABLE Orders
+ADD CONSTRAINT CustomerID_FK FOREIGN KEY (CustomerID)
+REFERENCEs Customer (CustomerID)
+
+
+---STOCK---
+ALTER TABLE Stock
+ADD CONSTRAINT ProductID_FK FOREIGN KEY (ProductID)
+REFERENCES Product (ProductID);
+
+---COURIER---
+ALTER TABLE Courier
+ADD CONSTRAINT OrderID_2_FK FOREIGN KEY (OrderID)
+REFERENCES Orders (OrderID)
+ADD CONSTRAINT PaymentID_FK FOREIGN KEY (PaymentID)
+REFERENCES Payment (PaymentID);
+
+---Company---
+ALTER TABLE Company
+ADD CONSTRAINT userID_2_FK FOREIGN KEY (userID)
+REFERENCES UserDET (userID);
+
+
+------Categories-----
+ALTER TABLE Categories
+ADD CONSTRAINT ProductID_3_FK FOREIGN KEY (ProductID)
+REFERENCES Product (ProductID);
+
+------------------------Insert Value--------------------------
+----User-----
+INSERT INTO UserDET
+VALUES('U0001', 'Kong', 0123456, 'kong@gmail.com');
+INSERT INTO UserDET
+VALUES('U0002', 'Soo', 0234567, 'soo@gmail.com');
+INSERT INTO UserDET
+VALUES('U0003', 'Eng', 0345678, 'eng@gmail.com');
+INSERT INTO UserDET
+VALUES('U0004', 'Liow', 0456789, 'liow@gmail.com');
+INSERT INTO UserDET
+VALUES('U0005', 'Ee', 0567890, 'ee@gmail.com');
+
+----Customer----
+INSERT INTO Customer
+VALUES('C0001','Winki','1234567','Lot 1111','winki@gmail.com');
+INSERT INTO Customer
+VALUES('C0002','Keying','2345678','Lot 2222','keying@gmail.com');
+INSERT INTO Customer
+VALUES('C0003','Xiaoxuan','3456789','Lot 3333','xiaoxuan@gmail.com');
+INSERT INTO Customer
+VALUES('C0004','Yunyi','4567890','Lot 4444','yunyi@gmail.com');
+INSERT INTO Customer
+VALUES('C0005','ZhiXuan','5678901','Lot 5555','zhixuan@gmail.com');
+
+----Product----
+INSERT INTO Product
+VALUES('P0001','pen','This is a pen made from US',35.50);
+INSERT INTO Product
+VALUES('P0002','shirt','This is a shirt made from Thailand',68.99);
+INSERT INTO Product
+VALUES('P0003','shoes','This is a shoes made from UK',400.00);
+INSERT INTO Product
+VALUES('P0004','Travel bag','This is a beg made from US',60.00);
+INSERT INTO Product
+VALUES('P0005','socks','This is a socks made from China',15.00);
+
+
+----Orders----
+INSERT INTO Orders
+VALUES('B0001',1,SYSDATE,15.00,'C0001');
+INSERT INTO Orders
+VALUES('B0002',1,SYSDATE,400.00,'C0004');
+INSERT INTO Orders
+VALUES('B0003',3,SYSDATE,180.00,'C0003');
+INSERT INTO Orders
+VALUES('B0004',1,SYSDATE,688.99,'C0002');
+INSERT INTO Orders
+VALUES('B0005',2,SYSDATE,70.00,'C0005');
+
+----Stock----
+INSERT INTO Stock
+VALUES(2,200,'P0001');
+INSERT INTO Stock
+VALUES(5,20,'P0002');
+INSERT INTO Stock
+VALUES(10,400,'P0003');
+INSERT INTO Stock
+VALUES(10,87,'P0004');
+INSERT INTO Stock
+VALUES(68,69,'P0005');
+
+----Payment----
+INSERT INTO Payment
+VALUES('X0001',1,15.00);
+INSERT INTO Payment
+VALUES('X0002',2,400.00);
+INSERT INTO Payment
+VALUES('X0003',3,180.00);
+INSERT INTO Payment
+VALUES('X0004',1,688.99);
+INSERT INTO Payment
+VALUES('X0005',2,70.00);
+
+----Company----
+INSERT INTO Company
+VALUES('CP0001','EdenShop','Lot Perak','U0001');
+INSERT INTO Company
+VALUES('CP0002','Vrify','Lot Selangor','U0002');
+INSERT INTO Company
+VALUES('CP0003','Sakei','Lot Johor','U0003');
+INSERT INTO Company
+VALUES('CP0004','Beggy','Lot Kedah','U0004');
+INSERT INTO Company
+VALUES('CP0005','Shopy','Lot Pahang','U0005');
+
+----Categories----
+INSERT INTO Categories
+VALUES('G0001','Stationery','P0001');
+INSERT INTO Categories
+VALUES('G0002','Shirt','P0002');
+INSERT INTO Categories
+VALUES('G0003','Sporting','P0003');
+INSERT INTO Categories
+VALUES('G0004','Sporting Accessories','P0005');
+INSERT INTO Categories
+VALUES('G0005','beg','P0004');
+
+----Courier----
+INSERT INTO Courier
+VALUES('T0001',SYSDATE,'Lot 1111','B0001','X0001');
+INSERT INTO Courier
+VALUES('T0002',SYSDATE,'Lot 4444','B0002','X0002');
+INSERT INTO Courier
+VALUES('T0003',SYSDATE,'Lot 3333','B0003','X0003');
+INSERT INTO Courier
+VALUES('T0004',SYSDATE,'Lot 2222','B0004','X0004');
+INSERT INTO Courier
+VALUES('T0005',SYSDATE,'Lot 5555','B0005','X0005');
+
+-------------Testing--------------
+---Display UserDET---
+SELECT * from UserDET;
+
+---Display Customer name and id---
+SELECT CustomerName, CustomerID
+FROM Customer;
+
+---Customer Name and the details of order made---
+SELECT C.customerName AS "Customer Name", O.OrderID AS "Order ID", O.OrderDate AS "Order Date", O.TotalPrice AS "Total Price" 
+FROM(
+    Orders O
+    JOIN Customer C ON O.customerID = C.CustomerID
+)
+ORDER BY O.TotalPrice;
+
+---Filter and display the product with the price between 50.00 and 300.00---
+SELECT * from Product
+WHERE ProductPrice between 50.00 and 300.00;
+
+---Display the product in respective categories---
+SELECT P.ProductID AS "Product ID", P.ProductName AS "Product Name", P.ProductPrice AS "Product Price", C.CategoryName AS "Category Name" 
+FROM(
+    Product P
+    JOIN Categories C ON P.ProductID = C.ProductID
+)
+ORDER BY P.ProductPrice;
+
+---Stock Updated---
+SELECT ProductID AS "Product ID",ProductStock AS "Current Stock", newStock AS "New Stock Added", ProductStock + newStock AS "Stock Updated"
+FROM Stock
+ORDER BY ProductID; 
+
+---Filter and display the total price of orders which is between 10.00 and 200.00---
+SELECT * from Orders
+WHERE TotalPrice between 10.00 and 200.00;
+
+---Display the company name and location of each users---
+SELECT U.userName AS "User Name", C.CompanyName AS "Comapny Name", C.CompanyID AS "Company ID", C.CompanyLocation AS "The Location of Company"
+FROM(
+    Company C
+    JOIN UserDER U ON C.UserID = U.UserID
+)
+ORDER BY C.CompanyID;
